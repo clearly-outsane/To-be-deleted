@@ -5,9 +5,6 @@ import clsxm from "../utils/clsxm";
 import Header from "./Header";
 
 const Upload = () => {
-  const gif1 = "https://media.giphy.com/media/3gXYfOUVcaJ8tSVCIJ/giphy.gif";
-  const gif2 = "https://media.giphy.com/media/3o6vXRpbptjHM70EzS/giphy.gif";
-
   const [isBeingDraggedOver, setIsBeingDraggedOver] = useState(false);
 
   const dropHandler = (e) => {
