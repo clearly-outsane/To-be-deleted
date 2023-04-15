@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import clsxm from "../utils/clsxm";
+import Header from "./Header";
 
 const Upload = () => {
+  const gif1 = "https://media.giphy.com/media/3gXYfOUVcaJ8tSVCIJ/giphy.gif";
+  const gif2 = "https://media.giphy.com/media/3o6vXRpbptjHM70EzS/giphy.gif";
+
   const [isBeingDraggedOver, setIsBeingDraggedOver] = useState(false);
 
   const dropHandler = (e) => {
@@ -27,9 +32,14 @@ const Upload = () => {
         onDragOver={handleDrag}
         onDragLeave={handleDrag}
         onDragEnter={handleDrag}
-        className='absolute inset-0 bg-pink-400 backdrop-filter backdrop-blur-sm flex justify-center items-center z-10'
+        className={clsxm(
+          `absolute transition inset-0 bg-cover bg-center bg-no-repeat bg-[url("https://media.giphy.com/media/3gXYfOUVcaJ8tSVCIJ/giphy.gif")] backdrop-filter backdrop-blur-sm flex justify-center items-center z-10`,
+          "before:content-[''] before:absolute before:inset-0 before:bg-black before:opacity-60  z-20"
+        )}
       >
-        <h1 className='text-2xl text-white'>Drop your files here</h1>
+        <h1 className='text-2xl text-white pointer-events-none z-30'>
+          Drop your files here
+        </h1>
       </div>
     );
   };
@@ -38,24 +48,28 @@ const Upload = () => {
     <div
       onDrop={dropHandler}
       onDragEnter={handleDrag}
-      className='grid place-items-center w-screen h-screen overflow-hidden relative'
+      className={clsxm(
+        "grid place-items-center w-screen h-screen overflow-hidden relative ",
+        `bg-cover bg-center bg-no-repeat bg-[url("https://media.giphy.com/media/3o6vXRpbptjHM70EzS/giphy.gif")]`,
+        "before:content-[''] before:absolute before:inset-0 before:bg-black before:opacity-90"
+      )}
     >
+      <Header />
       {isBeingDraggedOver && <DraggedOverlay />}
 
-      <label className=" flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <div className='bg-[rgba(0,0,0,0.6)] backdrop-filter backdrop-blur-sm aspect-square w-[400px] rounded flex flex-col p-6 prose-invert prose'>
-          <h1 className='font-normal text-white'>Upload</h1>
-          <div
-            className='cursor-pointer border-dashed border-2 border-white w-full h-[180px] flex justify-center items-center text-gray-400'
-            style={{
-              borderImage: `url('../public/images/dashed-border.png') 2 round`, //TODO
-            }}
-          >
-            Drag and drop your files or click here
+      <div className='prose-invert prose flex flex-col text-center items-center z-10'>
+        <h1 className='font-medium text-white max-w-[560px] text-[40px] m-0'>
+          Generate the perfect discord anime profile picture
+        </h1>
+        <label>
+          <div className='border border-gray-600 rounded-full py-2 px-5 mt-4 cursor-pointer active:scale-[.98] transition duration-200'>
+            <h4 className='text-gray-400 font-normal m-0'>
+              Drag and drop a file or click here to upload
+            </h4>
           </div>
-        </div>
-        <input className='hidden' type='file' />
-      </label>
+          <input className='hidden' type='file' />
+        </label>
+      </div>
     </div>
   );
 };
